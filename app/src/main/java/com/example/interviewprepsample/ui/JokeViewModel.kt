@@ -1,5 +1,6 @@
 package com.example.interviewprepsample.ui
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.interviewprepsample.data.JokesRepository
@@ -16,6 +17,8 @@ sealed class JokeUiState {
     data class Success(val joke: String, val id: Long) : JokeUiState()
     data class Error(val message: String) : JokeUiState()
 }
+
+const val TAG = "JokeViewModel"
 
 @HiltViewModel
 class JokeViewModel @Inject constructor(
@@ -48,7 +51,7 @@ class JokeViewModel @Inject constructor(
     }
 
     fun getNextJoke() = viewModelScope.launch {
-        val response = try {
+        try {
             val response = jokesRepository.getNextJoke()
             if (response.joke.isNullOrEmpty() || response.error) {
                 _uiState.update {
@@ -60,6 +63,7 @@ class JokeViewModel @Inject constructor(
                 }
             }
         } catch (e: Exception) {
+            Log.d(TAG, e.message ?: "")
             _uiState.update {
                 JokeUiState.Error("Something went wrong")
             }

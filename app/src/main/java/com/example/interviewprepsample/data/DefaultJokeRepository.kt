@@ -4,7 +4,7 @@ import com.example.interviewprepsample.data.di.IoDispatcher
 import com.example.interviewprepsample.data.local.JokeDao
 import com.example.interviewprepsample.data.mapper.toJokeData
 import com.example.interviewprepsample.data.model.JokeData
-import com.example.interviewprepsample.data.network.JokeApiService
+import com.example.interviewprepsample.data.network.JokesNetworkDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class DefaultJokeRepository @Inject constructor(
-    private val remoteDataSource: JokeApiService,
+    private val remoteDataSource: JokesNetworkDataSource,
     private val localDataSource: JokeDao,
     @IoDispatcher private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : JokesRepository {
