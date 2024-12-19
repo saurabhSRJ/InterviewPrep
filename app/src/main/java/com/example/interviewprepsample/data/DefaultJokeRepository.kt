@@ -3,6 +3,7 @@ package com.example.interviewprepsample.data
 import com.example.interviewprepsample.data.di.IoDispatcher
 import com.example.interviewprepsample.data.local.JokeDao
 import com.example.interviewprepsample.data.mapper.toJokeData
+import com.example.interviewprepsample.data.mapper.toJokeEntity
 import com.example.interviewprepsample.data.model.JokeData
 import com.example.interviewprepsample.data.network.JokesNetworkDataSource
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,7 +20,9 @@ class DefaultJokeRepository @Inject constructor(
 ) : JokesRepository {
     override suspend fun getJoke(): JokeData {
         return withContext(dispatcher) {
-            remoteDataSource.getJoke().toJokeData()
+            val response = remoteDataSource.getJoke()
+            localDataSource.saveJoke(response.toJokeEntity())
+            return@withContext response.toJokeData()
         }
     }
 

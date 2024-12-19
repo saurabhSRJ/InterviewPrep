@@ -17,3 +17,9 @@ fun JokeEntity.toJokeData() = JokeData(
     error = false,
     isFavourite = isFavourite
 )
+
+fun JokeResponse.toJokeEntity() = JokeEntity(
+    joke = getCombinedJoke(),
+    id = id,
+    isFavourite = false
+)
