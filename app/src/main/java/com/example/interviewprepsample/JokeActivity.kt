@@ -11,7 +11,6 @@ import com.example.interviewprepsample.databinding.ActivityJokeBinding
 import com.example.interviewprepsample.ui.JokeUiState
 import com.example.interviewprepsample.ui.JokeViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -38,8 +37,8 @@ class JokeActivity: AppCompatActivity() {
     private fun getData() {
         jokeViewModel.getJoke()
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
-                jokeViewModel.uiState.collectLatest { state ->
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                jokeViewModel.uiState.collect { state ->
                     when (state) {
                         is JokeUiState.Success -> {
                             handleSuccess(state.joke, state.id)

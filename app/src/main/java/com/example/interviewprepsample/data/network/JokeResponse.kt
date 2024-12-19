@@ -2,7 +2,7 @@ package com.example.interviewprepsample.data.network
 
 data class JokeResponse(
     val category: String,
-    val type: JokeType,
+    val type: String,
     val joke: String?,
     val setup: String?,
     val delivery: String?,
@@ -10,22 +10,11 @@ data class JokeResponse(
     val error: Boolean
 ) {
     fun getCombinedJoke(): String? {
-        return when(type) {
-            JokeType.SINGLE -> {
-                joke
-            }
-            JokeType.TWO_PART -> {
-                setup + " " + delivery
-            }
-        }
+        return if (joke.isNullOrEmpty()) {
+            "$setup $delivery"
+        } else joke
     }
 }
-
-enum class JokeType {
-    SINGLE,
-    TWO_PART
-}
-
 
 /**
  *

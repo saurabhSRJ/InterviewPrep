@@ -26,7 +26,7 @@ object NetworkModule {
             else
                 HttpLoggingInterceptor.Level.NONE
         )
-        return OkHttpClient().newBuilder().build()
+        return OkHttpClient.Builder().addInterceptor(loggingInterceptor).build()
     }
 
     @Provides

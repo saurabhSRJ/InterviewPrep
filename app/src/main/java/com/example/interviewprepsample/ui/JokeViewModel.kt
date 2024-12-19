@@ -32,7 +32,7 @@ class JokeViewModel @Inject constructor(
     )
 
     fun getJoke() = viewModelScope.launch {
-        val response = try {
+        try {
             val response = jokesRepository.getJoke()
             if (response.joke.isNullOrEmpty() || response.error) {
                 _uiState.update {
@@ -52,6 +52,7 @@ class JokeViewModel @Inject constructor(
 
     fun getNextJoke() = viewModelScope.launch {
         try {
+            _uiState.update { JokeUiState.Loading }
             val response = jokesRepository.getNextJoke()
             if (response.joke.isNullOrEmpty() || response.error) {
                 _uiState.update {
