@@ -49,8 +49,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core-database"))
-    implementation(project(":core-data"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -62,10 +60,16 @@ dependencies {
     //retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
+    implementation(libs.logging.interceptor)
 
     //hilt
     implementation(libs.hilt.android.core)
     ksp(libs.hilt.compiler)
+
+    //room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
 
     //Glide
     implementation(libs.glide)

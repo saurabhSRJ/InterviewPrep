@@ -21,5 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "InterviewPrepSample"
 include(":app")
-include(":core-data")
-include(":core-database")
